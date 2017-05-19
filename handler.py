@@ -78,6 +78,6 @@ def wps(event, context):
     channel = params['channel_name'][0]
     command_text = params['text'][0]
 
-    WpsParser().parse(command_text)
+    WpsParser().parse(command_text, user)
 
     return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
