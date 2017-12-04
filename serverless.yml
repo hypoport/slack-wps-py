@@ -19,7 +19,7 @@ service: slack-wps-py # NOTE: update this with your service name
 
 provider:
   name: aws
-  runtime: python2.7
+  runtime: python3.6
 
   stage: prod
   region: eu-central-1
