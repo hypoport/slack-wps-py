@@ -1,4 +1,4 @@
-# *W*ork*P*lace *S*tatus (WPS)
+# Workplace Status (WPS)
 
 Workplace status `/wps` is a slack command that helps teams to communicate better
 by setting and sharing each workers status easily.
