@@ -48,10 +48,36 @@ class TestWpsParser(TestCase):
         command = self.wps.parse("sick")
         self.assertEqual(expected_command, command)
 
-    def test_parse_get_status(self):
+    @fake_time('1970-12-21 16:35:10')
+    def test_parse_get_status_for_multiple_users(self):
         expected_command = {
             'commandType': CommandType.GET,
-            'users': ['@john']
+            'users': ['@john', '@jane'],
+            'from': datetime(1970, 12, 21, 16 + 1, 35, 10), # check timezones - why is dateparser.parse('today') 17h and nor 16h?
+            'to': datetime(1970, 12, 21, 23, 59, 59, 999999)
         }
-        command = self.wps.parse("@john")
+        command = self.wps.parse("@john @jane")
         self.assertEqual(expected_command, command)
+
+    @fake_time('1970-12-10 13:05:15')
+    def test_parse_get_status_on(self):
+        expected_command = {
+            'commandType': CommandType.GET,
+            'users': ['@jane'],
+            'from': datetime(1970, 12, 10+1, 0, 0, 0),
+            'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
+        }
+        command = self.wps.parse("@jane on tomorrow")
+        self.assertEqual(expected_command, command)
+
+    @fake_time('1970-12-14 13:05:15')
+    def test_parse_get_status_from_to(self):
+        expected_command = {
+            'commandType': CommandType.GET,
+            'users': ['@jane'],
+            'from': datetime(1970, 12, 14+1, 13+1, 5, 15),  # check timezones - why 13+1 not 13?
+            'to': datetime(1970, 12, 14+3, 13+1, 5, 15)     # check timezones - why 13+1 not 13?
+        }
+        command = self.wps.parse("@jane from tomorrow to in 3 days")
+        self.assertEqual(expected_command, command)
+
