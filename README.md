@@ -52,6 +52,15 @@ express there interest.
 
 TODO description of how to set all up from a client perspective
 
+## current aws parts
+
+AWS Lambda slack-wps-py-prod-wps
+
+## deploy to amazon
+
+run `serverless deploy`
+
+
 # Roadmap
 
 ## integrate with slack status
