@@ -19,6 +19,8 @@ var/
 # Serverless directories
 .serverless
 
+venv/
+
 # idea
 *.iml
 .idea
