@@ -74,10 +74,11 @@ def wps(event, context):
         return respond(Exception('Invalid request token'))
 
     user = params['user_name'][0]
-    command = params['command'][0]
+    # params['command'][0]
     channel = params['channel_name'][0]
     command_text = params['text'][0]
 
-    WpsParser().parse(command_text, user)
+    command = WpsParser().parse(command_text)
+    command['user'] = user
 
     return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
