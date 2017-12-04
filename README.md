@@ -70,10 +70,10 @@ TODO description of how to set all up from a client perspective
 
 # Contributing
 
-Please read [CONTRIBUTING|CONTRIBUTING.md] for details on our code of conduct, and the process
+Please read [CONTRIBUTING](CONTRIBUTING.md) for details on our code of conduct, and the process
 for submitting pull requests to us.
 
 # License
 
-This project is licensed under the MIT License - see the [LICENSE|LICENSE.md] file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
 
