@@ -1,7 +1,7 @@
 # Workplace Status (WPS)
 
-Workplace status `/wps` is a slack command that helps teams to communicate better
-by setting and sharing each workers status easily.
+Workplace status `/wps` is a Slack command that helps teams to communicate better
+by setting and sharing each worker's status easily.
 
 # Usage
 
@@ -46,7 +46,7 @@ by setting and sharing each workers status easily.
 All of the above is the wish list for the initial version of `/wps`.
 The current code is the result of a hackathon and needs more work on it;)
 Nevertheless, it's now open source so that everybody can contribute and
-express there interest.
+express their interest.
 
 # Installation
 
@@ -65,12 +65,12 @@ run `serverless deploy`
 
 ## integrate with slack status
 
-`wps` should interact with slacks own status
+`wps` should interact with Slack's own status
 (see [slack status API](https://api.slack.com/docs/presence-and-status))
 
 ## status trigger
 
-`wps` should be able to trigger actions, when a status is set.
+`wps` should be able to trigger actions when a status is set.
 
 | command | description |
 | ---- | ---- |
