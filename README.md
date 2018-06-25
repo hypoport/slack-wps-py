@@ -38,7 +38,7 @@ by setting and sharing each worker's status easily.
 | `/wps @group` | shows current status of all members of usergroup _@group_ |
 | `/wps @jane @john` | shows current status of _@jane_ and _@john_  |
 | `/wps @john on <date>` | shows status on _\<date\>_ of _@john_ |
-| `/wps @john from <date1> to <date2` | shows status for the specified range |
+| `/wps @john from <date1> to <date2>` | shows status for the specified range |
 | `/wps #foo | shows status of all members of channel _foo_ |
 
 
