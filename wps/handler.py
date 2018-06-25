@@ -85,9 +85,11 @@ def wps(event, context):
         command['user'] = user
 
         if command['commandType'] == CommandType.GET:
-            WpsRepository().get(command)
+            status = WpsRepository().get(command)
+            return respond(None, "%s has status %s" % (user, status))
         elif command['commandType'] == CommandType.SET:
             WpsRepository().add(command)
+            return respond(None, "Status %s saved for user %s" % (command['status'], user))
         else:
             pass
 
