@@ -21,6 +21,8 @@ var/
 
 venv/
 
+node_modules/
+
 # idea
 *.iml
 .idea
