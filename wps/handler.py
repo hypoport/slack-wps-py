@@ -78,7 +78,9 @@ def wps(event, context):
     channel = params['channel_name'][0]
     command_text = params['text'][0]
 
-    command = WpsParser().parse(command_text)
-    command['user'] = user
-
-    return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
+    try:
+        command = WpsParser().parse(command_text)
+        command['user'] = user
+        return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
+    except:
+        return respond(None, "hilfe text %s invoked in %s with the following text: %s" % (user, channel, command_text))
