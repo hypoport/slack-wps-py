@@ -60,8 +60,11 @@ AWS Lambda slack-wps-py-prod-wps
 
 run `serverless deploy`
 
-To istall serverless on mac, run `npm install -g serverless`
+To istall serverless on mac,
+* run `npm install -g serverless`
 
+### Setup credentials
+https://serverless.com/framework/docs/providers/aws/guide/credentials/
 
 # Roadmap
 
