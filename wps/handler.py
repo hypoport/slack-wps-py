@@ -94,12 +94,32 @@ def wps(event, context):
         elif command['commandType'] == CommandType.SET:
             WpsRepository().add(command)
             return respond(None, "Status %s saved for user %s" % (command['status'], user))
+        elif command['commandType'] == CommandType.CLEAR:
+            WpsRepository().clear(command)
+            return respond(None, "Cleared all status of user %s" % user)
         else:
-            pass
-
-        # TODO WpsRepository().remove(command)
+            return respond(None, "Unexpected command - doing nothing")
 
         return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
     except Exception as e:
         logger.error(e)
-        return respond(None, "hilfe text\\\n invoked in with the following text:\\\n")
+        return respond(None, "Slack Workplace Status\n"
+                             "Usage:\n"
+                             "  setting your status\n"
+                             "    /wps <status> \n"
+                             "    /wps <status> from <date1> to <date2>\n"
+                             "    /wps <status> on <date>\n"
+                             "  clearing your status\n"
+                             "    /wps clear\n"
+                             "  getting status\n"
+                             "    /wps @user\n"
+                             "    /wps @user1 @user2\n"
+                             "    /wps @user on <date>\n"
+                             "    /wps @user from <date1> to <date2>\n"
+                             "\nExamples:\n"
+                             "  /wps sick from tomorrow to in 3 days\n"
+                             "  /wps remote on tomorrow at 2pm\n"
+                             "  /wps @john @jane\n"
+                             "  /wps @john on in 3 days\n"
+                             "  /wps @john on 23.06.2018\n"
+                             "\nFor more details see https://github.com/hypoport/slack-wps-py/blob/master/README.md")

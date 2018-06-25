@@ -1,8 +1,7 @@
 import logging
-from wps.commandType import CommandType
-from pynamodb.models import Model
-from pynamodb.attributes import UnicodeAttribute
 
+from pynamodb.attributes import UnicodeAttribute
+from pynamodb.models import Model
 
 
 class WpsStatus(Model):
@@ -26,8 +25,12 @@ class WpsRepository:
         status = command['status']
         WpsStatus(user_name=user, status=status).save()
 
-
     def get(self, command: dict):
         self.logger.info('getting %s..', command)
         users = command['users']
         return WpsStatus.batch_get(users)
+
+    def clear(self, command):
+        self.logger.info('clearing %s..', command)
+        user = command['user']
+        return WpsStatus(user_name=user).delete(condition=WpsStatus.user_name == user)

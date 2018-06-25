@@ -11,6 +11,9 @@ class WpsParser:
     def parse(self, text: str) -> dict:
         self.logger.info('start parsing %s..', text)
 
+        if text.strip().startswith("clear"):
+            return {'commandType': CommandType.CLEAR}
+
         settingsWithTimeMin = {'RELATIVE_BASE': datetime.combine(datetime.today().date(), time.min)}
         settingsWithTimeMax = {'RELATIVE_BASE': datetime.combine(datetime.today().date(), time.max)}
         status_or_users = None

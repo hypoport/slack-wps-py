@@ -15,6 +15,13 @@ class TestWpsParser(TestCase):
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(logging.StreamHandler())
 
+    def test_clear(self):
+        expected_command = {
+            'commandType': CommandType.CLEAR,
+        }
+        command = self.wps.parse("  clear  ")
+        self.assertEqual(expected_command, command)
+
     @fake_time('1970-12-14 13:05:15')
     def test_parse_set_status_from_to(self):
         expected_command = {
