@@ -50,7 +50,7 @@ from wps.wpsParser import WpsParser
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedSlackWpsToken']
 
 kms = boto3.client('kms')
-expected_slack_wps_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))['Plaintext']
+expected_slack_wps_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))['Plaintext'].decode("utf-8")
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -71,7 +71,7 @@ def wps(event, context):
     token = params['token'][0]
     if token != expected_slack_wps_token:
         logger.error("Request token (%s) does not match expected", token)
-        return respond(Exception('Invalid request token'))
+        raise Exception('Invalid request token')
 
     user = params['user_name'][0]
     # params['command'][0]
