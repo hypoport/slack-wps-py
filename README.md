@@ -60,6 +60,8 @@ AWS Lambda slack-wps-py-prod-wps
 
 run `serverless deploy`
 
+To istall serverless on mac, run `brew install serverless`
+
 
 # Roadmap
 
@@ -85,4 +87,3 @@ for submitting pull requests to us.
 # License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
-
