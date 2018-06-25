@@ -46,6 +46,8 @@ from base64 import b64decode
 from urllib.parse import parse_qs
 
 from wps.wpsParser import WpsParser
+from wps.wpsRepository import WpsRepository
+from wps.commandType import CommandType
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedSlackWpsToken']
 
@@ -81,6 +83,17 @@ def wps(event, context):
     try:
         command = WpsParser().parse(command_text)
         command['user'] = user
+
+        if command['commandType'] == CommandType.GET:
+            WpsRepository().get(command)
+        elif command['commandType'] == CommandType.SET:
+            WpsRepository().add(command)
+        else:
+            pass
+
+        # TODO WpsRepository().remove(command)
+
         return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
-    except:
+    except Exception as e:
+        logger.error(e)
         return respond(None, "hilfe text %s invoked in %s with the following text: %s" % (user, channel, command_text))

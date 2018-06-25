@@ -16,25 +16,26 @@ class WpsParser:
             textparts = text.split(' from ')
             status_or_users = textparts[0]
             dates = textparts[1].split(' to ')
-            from_date = dateparser.parse(dates[0])
-            to_date = dateparser.parse(dates[1])
+            # from_date = dateparser.parse(dates[0])
+            # to_date = dateparser.parse(dates[1])
         elif 'on' in text:
             textparts = text.split(' on ')
             status_or_users = textparts[0]
-            on_date = dateparser.parse(textparts[1])
-            from_date = datetime.combine(on_date, time.min)
-            to_date = datetime.combine(on_date, time.max)
+            # on_date = dateparser.parse(textparts[1])
+            # from_date = datetime.combine(on_date, time.min)
+            # to_date = datetime.combine(on_date, time.max)
         else:
             status_or_users = text
-            from_date = dateparser.parse('today')
-            to_date = dateparser.parse('today, 23:59:59.999999')
+            # from_date = dateparser.parse('today')
+            # to_date = dateparser.parse('today, 23:59:59.999999')
 
         command = {
-            'from': from_date,
-            'to': to_date
+            # 'from': from_date,
+            # 'to': to_date
         }
         self.parse_status_or_users(status_or_users, command)
 
+        # entweder ein command vom typ GET mit users oder vom typ SET mit status
         return command
 
     def parse_status_or_users(self, status_or_users: str, command: dict):
