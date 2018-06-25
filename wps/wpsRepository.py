@@ -29,5 +29,5 @@ class WpsRepository:
 
     def get(self, command: dict):
         self.logger.info('getting %s..', command)
-        user = command['user']
-        return WpsStatus.get(user).status
+        users = command['users']
+        return WpsStatus.batch_get(users)

@@ -61,7 +61,7 @@ logger.setLevel(logging.INFO)
 def respond(err, res=None):
     return {
         'statusCode': '400' if err else '200',
-        'body': err.message if err else json.dumps(res),
+        'body': err.message if err else res,
         'headers': {
             'Content-Type': 'application/json',
         },
@@ -85,8 +85,12 @@ def wps(event, context):
         command['user'] = user
 
         if command['commandType'] == CommandType.GET:
-            status = WpsRepository().get(command)
-            return respond(None, "%s has status %s" % (user, status))
+            statuses = WpsRepository().get(command)
+            response = 'What we know\n'
+            for s in statuses:
+                response = response + '@%s has status %s\n' % (s.user_name, s.status)
+
+            return respond(None, response)
         elif command['commandType'] == CommandType.SET:
             WpsRepository().add(command)
             return respond(None, "Status %s saved for user %s" % (command['status'], user))
