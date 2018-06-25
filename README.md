@@ -30,7 +30,7 @@ by setting and sharing each worker's status easily.
 | `/wps <status> from <date1> to <date2>` | sets _\<status\>_ for the specified range |
 | `/wps <status> on <date>` | sets _\<status\>_ on the specified date |
 
-## requesting status of colleagues or groups
+## requesting status of colleagues, groups or members of a channel
 
 | command | description |
 | ---- | ---- |
@@ -39,6 +39,7 @@ by setting and sharing each worker's status easily.
 | `/wps @jane @john` | shows current status of _@jane_ and _@john_  |
 | `/wps @john on <date>` | shows status on _\<date\>_ of _@john_ |
 | `/wps @john from <date1> to <date2` | shows status for the specified range |
+| `/wps #foo | shows status of all members of channel _foo_ |
 
 
 # CAUTION - work in progress !
