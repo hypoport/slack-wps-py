@@ -75,12 +75,12 @@ def wps(event, context):
         logger.error("Request token (%s) does not match expected", token)
         raise Exception('Invalid request token')
 
-    user = params['user_name'][0]
-    # params['command'][0]
-    channel = params['channel_name'][0]
-    command_text = params['text'][0]
-
     try:
+        user = params['user_name'][0]
+        # params['command'][0]
+        channel = params['channel_name'][0]
+        command_text = params['text'][0]
+
         command = WpsParser().parse(command_text)
         command['user'] = user
 
@@ -98,4 +98,4 @@ def wps(event, context):
         return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
     except Exception as e:
         logger.error(e)
-        return respond(None, "hilfe text %s invoked in %s with the following text: %s" % (user, channel, command_text))
+        return respond(None, "hilfe text\\\n invoked in with the following text:\\\n")
