@@ -60,7 +60,7 @@ AWS Lambda slack-wps-py-prod-wps
 
 run `serverless deploy`
 
-To istall serverless on mac, run `brew install serverless`
+To istall serverless on mac, run `npm install -g serverless`
 
 
 # Roadmap
