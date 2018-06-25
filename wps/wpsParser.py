@@ -42,7 +42,7 @@ class WpsParser:
     def parse_status_or_users(self, status_or_users: str, command: dict):
         if status_or_users.startswith('@'):
             command['commandType'] = CommandType.GET
-            command['users'] = status_or_users.split()
+            command['users'] = status_or_users.replace('@', '').split()
         else:
             command['commandType'] = CommandType.SET
             command['status'] = status_or_users.strip()
