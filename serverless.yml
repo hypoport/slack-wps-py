@@ -29,11 +29,11 @@ provider:
   role: arn:aws:iam::458697064574:role/service-role/slack-wps-role
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "arn:aws:dynamodb:eu-central-1:458697064574:table/wpstatus"
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:PutObject"
