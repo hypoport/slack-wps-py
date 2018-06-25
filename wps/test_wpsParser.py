@@ -63,7 +63,7 @@ class TestWpsParser(TestCase):
     def test_parse_get_status_for_multiple_users(self):
         expected_command = {
             'commandType': CommandType.GET,
-            'users': ['@john', '@jane'],
+            'users': ['john', 'jane'],
             'from': datetime(1970, 12, 21, 16, 35, 10),
             'to': datetime(1970, 12, 21, 23, 59, 59, 999999)
         }
@@ -74,7 +74,7 @@ class TestWpsParser(TestCase):
     def test_parse_get_status_on(self):
         expected_command = {
             'commandType': CommandType.GET,
-            'users': ['@jane'],
+            'users': ['jane'],
             'from': datetime(1970, 12, 10+1, 0, 0, 0),
             'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
@@ -85,7 +85,7 @@ class TestWpsParser(TestCase):
     def test_parse_get_status_on_with_time(self):
         expected_command = {
             'commandType': CommandType.GET,
-            'users': ['@jane'],
+            'users': ['jane'],
             'from': datetime(1970, 12, 10+1, 8, 0, 0),
             'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
@@ -96,7 +96,7 @@ class TestWpsParser(TestCase):
     def test_parse_get_status_from_to(self):
         expected_command = {
             'commandType': CommandType.GET,
-            'users': ['@jane'],
+            'users': ['jane'],
             'from': datetime(1970, 12, 14+1, 0, 0, 0),
             'to': datetime(1970, 12, 14+3, 23, 59, 59, 999999)
         }
