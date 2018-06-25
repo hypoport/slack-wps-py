@@ -1,0 +1,9 @@
+{
+  "name": "slack-wps-py",
+  "version": "1.0.0",
+  "description": "Slack Workplace Status",
+  "devDependencies": {
+    "serverless": "1.27.3",
+    "serverless-python-requirements": "^3.0.7"
+  }
+}

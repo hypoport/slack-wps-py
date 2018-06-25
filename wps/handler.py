@@ -45,7 +45,7 @@ import os
 from base64 import b64decode
 from urllib.parse import parse_qs
 
-from wpsParser import WpsParser
+from wps.wpsParser import WpsParser
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedSlackWpsToken']
 

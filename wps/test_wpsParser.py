@@ -1,7 +1,7 @@
 from unittest import TestCase
-from wpsParser import WpsParser
+from wps.wpsParser import WpsParser
 import logging
-from commandType import CommandType
+from wps.commandType import CommandType
 from libfaketime import fake_time, reexec_if_needed
 from datetime import datetime
 

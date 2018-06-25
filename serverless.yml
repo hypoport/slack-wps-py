@@ -13,6 +13,9 @@
 
 service: slack-wps-py # NOTE: update this with your service name
 
+plugins:
+  - serverless-python-requirements
+
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
@@ -46,17 +49,19 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  include:
-#    - include-me.py
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.py
-#    - exclude-me-dir/**
+package:
+  exclude:
+    - '**/*'
+  include:
+    - 'wps/**/*.py'
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
 
 functions:
   wps:
-    handler: handler.wps
+    handler: wps.handler.wps
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

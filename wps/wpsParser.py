@@ -1,7 +1,7 @@
 import logging
 import dateparser
 from datetime import datetime, time
-from commandType import CommandType
+from wps.commandType import CommandType
 
 
 class WpsParser:
