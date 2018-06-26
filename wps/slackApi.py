@@ -40,7 +40,7 @@ def slack_update_status(userID, status):
     headers = {'content-type': 'application/json', 'Authorization': 'Bearer ' + token}
     logger.info("Sending post request to update status, payload: %s", payload)
     r = requests.post(url, data=json.dumps(payload), headers=headers)
-    logger.info("Post request to update status sent, response: %s", r)
+    logger.info("Post request to update status sent, response: %s", r.text)
 
 
 def slack_get_userIds_channel(channel):
