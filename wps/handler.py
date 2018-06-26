@@ -84,9 +84,10 @@ def wps(event, context):
             return respond(None, response)
         elif command_type_ == CommandType.GET_GROUP:
             users = slackApi.slack_get_userIds_group(command['group'])
-            statuses = WpsRepository().get(users)
-            response = create_response_text(statuses, 'The following group members have a status\n')
-            return respond(None, response)
+            logger.info("Found these users for %g: %s" % (command['group'], users))
+            # statuses = WpsRepository().get(users)
+            # response = create_response_text(statuses, 'The following group members have a status\n')
+            return respond(None, 'The querying of a group is not supported yet')
 
         elif command_type_ == CommandType.SET:
             WpsRepository().add(command)
