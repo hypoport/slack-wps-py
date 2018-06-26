@@ -85,8 +85,10 @@ def wps(event, context):
         if command['commandType'] == CommandType.GET:
             statuses = WpsRepository().get(command)
             response = 'What we know\n'
-            for s in statuses:
-                response = response + '@%s has status %s\n' % (s.user_name, s.status)
+            for status in statuses:
+                response = response + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
+                                                                     status.from_date.strftime("%a %d.%m.%y %H:%M"),
+                                                                     status.to_date.strftime("%a %d.%m.%y %H:%M"))
 
             return respond(None, response)
         elif command['commandType'] == CommandType.SET:

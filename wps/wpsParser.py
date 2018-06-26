@@ -34,12 +34,10 @@ class WpsParser:
             to_date = datetime.combine(from_date.date(), time.max)
 
         command = {
-            'from': from_date,
-            'to': to_date
+            'from_date': from_date,
+            'to_date': to_date
         }
         self.parse_status_or_users(status_or_users, command)
-
-        # entweder ein command vom typ GET mit users oder vom typ SET mit status
         return command
 
     def parse_status_or_users(self, status_or_users: str, command: dict):
