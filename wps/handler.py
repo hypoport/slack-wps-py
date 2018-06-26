@@ -40,7 +40,7 @@ Follow these steps to complete the configuration of your command API endpoint
 import logging
 from urllib.parse import parse_qs
 
-from wps import PropertyExtractor
+from wps import PropertyExtractor, slackApi
 from wps.commandType import CommandType
 from wps.wpsParser import WpsParser
 from wps.wpsRepository import WpsRepository
@@ -80,21 +80,21 @@ def wps(event, context):
         command_type_ = command['commandType']
         if command_type_ == CommandType.GET:
             statuses = WpsRepository().get(command)
-            response = 'What we know\n'
-            for status in statuses:
-                response = response + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
-                                                                     status.from_date.strftime("%a %d.%m.%y %H:%M"),
-                                                                     status.to_date.strftime("%a %d.%m.%y %H:%M"))
+            response = create_response_text(statuses)
             return respond(None, response)
+        elif command_type_ == CommandType.GET_GROUP:
+            users = slackApi.slack_get_userIds_group(command['group'])
+            statuses = WpsRepository().get(users)
+            response = create_response_text(statuses, 'The following group members have a status\n')
+            return respond(None, response)
+
         elif command_type_ == CommandType.SET:
             WpsRepository().add(command)
             return respond(None, "Status %s saved for user %s" % (command['status'], user))
         elif command_type_ == CommandType.CLEAR:
             WpsRepository().clear(command)
             return respond(None, "Cleared all status of user %s" % user)
-        # elif command_type_ == CommandType.GET_GROUP:
-        #     users = slackApi.slack_get_userIds_group()
-        #     statuses = WpsRepository().get()
+
         else:
             return respond(None, "Unexpected command - doing nothing")
 
@@ -120,3 +120,12 @@ def wps(event, context):
                              "  /wps @john on in 3 days\n"
                              "  /wps @john on 23.06.2018\n"
                              "\nFor more details see https://github.com/hypoport/slack-wps-py/blob/master/README.md")
+
+
+def create_response_text(statuses, start='What we know \n'):
+    response = start
+    for status in statuses:
+        response = response + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
+                                                             status.from_date.strftime("%a %d.%m.%y %H:%M"),
+                                                             status.to_date.strftime("%a %d.%m.%y %H:%M"))
+    return response
