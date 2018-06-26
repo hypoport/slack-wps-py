@@ -27,8 +27,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.SET,
             'status': 'sick',
-            'from': datetime(1970, 12, 14+1, 0, 0, 0),
-            'to': datetime(1970, 12, 14+3, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 14+1, 0, 0, 0),
+            'to_date': datetime(1970, 12, 14+3, 23, 59, 59, 999999)
         }
         command = self.wps.parse("sick from tomorrow to in 3 days")
         self.assertEqual(expected_command, command)
@@ -38,8 +38,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.SET,
             'status': 'sick',
-            'from': datetime(1970, 12, 10+1, 0, 0, 0),
-            'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 10+1, 0, 0, 0),
+            'to_date': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
         command = self.wps.parse("sick on tomorrow")
         self.assertEqual(expected_command, command)
@@ -49,8 +49,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.SET,
             'status': 'sick',
-            'from': datetime(1970, 12, 10+1, 8, 0, 0),
-            'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 10+1, 8, 0, 0),
+            'to_date': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
         command = self.wps.parse("sick on tomorrow at 8am")
         self.assertEqual(expected_command, command)
@@ -60,8 +60,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.SET,
             'status': 'sick',
-            'from': datetime(1970, 12, 21, 16, 35, 10),
-            'to': datetime(1970, 12, 21, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 21, 16, 35, 10),
+            'to_date': datetime(1970, 12, 21, 23, 59, 59, 999999)
         }
         command = self.wps.parse("sick")
         self.assertEqual(expected_command, command)
@@ -71,8 +71,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.GET,
             'users': ['john', 'jane'],
-            'from': datetime(1970, 12, 21, 16, 35, 10),
-            'to': datetime(1970, 12, 21, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 21, 16, 35, 10),
+            'to_date': datetime(1970, 12, 21, 23, 59, 59, 999999)
         }
         command = self.wps.parse("@john @jane")
         self.assertEqual(expected_command, command)
@@ -82,8 +82,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.GET,
             'users': ['jane'],
-            'from': datetime(1970, 12, 10+1, 0, 0, 0),
-            'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 10+1, 0, 0, 0),
+            'to_date': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
         command = self.wps.parse("@jane on tomorrow")
         self.assertEqual(expected_command, command)
@@ -93,8 +93,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.GET,
             'users': ['jane'],
-            'from': datetime(1970, 12, 10+1, 8, 0, 0),
-            'to': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 10+1, 8, 0, 0),
+            'to_date': datetime(1970, 12, 10+1, 23, 59, 59, 999999)
         }
         command = self.wps.parse("@jane on tomorrow at 8am")
         self.assertEqual(expected_command, command)
@@ -104,8 +104,8 @@ class TestWpsParser(TestCase):
         expected_command = {
             'commandType': CommandType.GET,
             'users': ['jane'],
-            'from': datetime(1970, 12, 14+1, 0, 0, 0),
-            'to': datetime(1970, 12, 14+3, 23, 59, 59, 999999)
+            'from_date': datetime(1970, 12, 14+1, 0, 0, 0),
+            'to_date': datetime(1970, 12, 14+3, 23, 59, 59, 999999)
         }
         command = self.wps.parse("@jane from tomorrow to in 3 days")
         self.assertEqual(expected_command, command)
