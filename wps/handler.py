@@ -67,6 +67,7 @@ def respond(err, res=None):
 
 def wps(event, context):
     params = parse_qs(event['body'])
+    logger.info("Data from Slack: %s", params)
     token = params['token'][0]
     if token != expected_slack_wps_token:
         logger.error("Request token (%s) does not match expected", token)
