@@ -71,6 +71,7 @@ def wps(event, context):
 
     try:
         user = params['user_name'][0]
+        user_id = params['user_id'][0]
         # params['command'][0]
         command_text = params['text'][0]
 
@@ -90,7 +91,9 @@ def wps(event, context):
             return respond(None, 'The querying of a group is not supported yet')
 
         elif command_type_ == CommandType.SET:
+            slackApi.slack_update_status(user_id, command['status'])
             WpsRepository().add(command)
+
             return respond(None, "Status %s saved for user %s" % (command['status'], user))
         elif command_type_ == CommandType.CLEAR:
             WpsRepository().clear(command)
