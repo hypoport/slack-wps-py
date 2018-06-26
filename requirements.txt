@@ -1,2 +1,4 @@
+libfaketime=1.0.0
+boto3=1.7.45
 dateparser==0.7.0
-pynamodb
+pynamodb=3.3.0

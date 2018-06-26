@@ -38,16 +38,13 @@ Follow these steps to complete the configuration of your command API endpoint
 """
 
 import boto3
-import json
 import logging
 import os
-
 from base64 import b64decode
 from urllib.parse import parse_qs
-
+from wps.commandType import CommandType
 from wps.wpsParser import WpsParser
 from wps.wpsRepository import WpsRepository
-from wps.commandType import CommandType
 
 ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedSlackWpsToken']
 
