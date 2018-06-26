@@ -80,8 +80,8 @@ def wps(event, context):
         command_type_ = command['commandType']
         if command_type_ == CommandType.GET:
             statuses = WpsRepository().get(command)
-            response = create_response_text(statuses)
-            return respond(None, response)
+
+            return respond(None, status_list(statuses))
         elif command_type_ == CommandType.GET_GROUP:
             users = slackApi.slack_get_userIds_group(command['group'])
             logger.info("Found these users for %g: %s" % (command['group'], users))
@@ -115,21 +115,21 @@ def wps(event, context):
                              "  getting status\n"
                              "    /wps @user\n"
                              "    /wps @user1 @user2\n"
-                             "    /wps @user on <date>\n"
-                             "    /wps @user from <date1> to <date2>\n"
+                             # "    /wps @user on <date>\n"
+                             # "    /wps @user from <date1> to <date2>\n"
                              "\nExamples:\n"
                              "  /wps sick from tomorrow to in 3 days\n"
                              "  /wps remote on tomorrow at 2pm\n"
                              "  /wps @john @jane\n"
-                             "  /wps @john on in 3 days\n"
-                             "  /wps @john on 23.06.2018\n"
+                             # "  /wps @john on in 3 days\n"
+                             # "  /wps @john on 23.06.2018\n"
                              "\nFor more details see https://github.com/hypoport/slack-wps-py/blob/master/README.md")
 
 
-def create_response_text(statuses, start='What we know \n'):
-    response = start
+def status_list(statuses):
+    message = "What we know\n"
     for status in statuses:
-        response = response + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
-                                                             status.from_date.strftime("%a %d.%m.%y %H:%M"),
-                                                             status.to_date.strftime("%a %d.%m.%y %H:%M"))
-    return response
+        message = message + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
+                                                                   status.from_date.strftime("%a %d.%m.%y %H:%M"),
+                                                                   status.to_date.strftime("%a %d.%m.%y %H:%M"))
+    return message

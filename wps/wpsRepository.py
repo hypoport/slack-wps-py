@@ -1,17 +1,7 @@
 import logging
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
-from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
 from pynamodb.models import Model
-
-
-class DateIndex(GlobalSecondaryIndex):
-    class Meta:
-        read_capacity_units = 1
-        write_capacity_units = 1
-        projection = AllProjection()
-    from_date = UTCDateTimeAttribute(hash_key=True)
-    to_date = UTCDateTimeAttribute(range_key=True)
 
 
 class WpsStatus(Model):
@@ -21,9 +11,9 @@ class WpsStatus(Model):
         read_capacity_units = 1
         write_capacity_units = 1
     user_name = UnicodeAttribute(hash_key=True)
-    status = UnicodeAttribute()
-    date_index = DateIndex()
     from_date = UTCDateTimeAttribute()
+    # from_date = UTCDateTimeAttribute(range_key=True)
+    status = UnicodeAttribute()
     to_date = UTCDateTimeAttribute()
 
 
