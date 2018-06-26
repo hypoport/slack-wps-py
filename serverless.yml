@@ -90,7 +90,7 @@ functions:
 #    Define function environment variables here
     environment:
       kmsEncryptedSlackWpsToken: AQECAHiFsBBRz85HV/5Nbb0vV4mSgEFlW3qWxCQXdK2y0HZcgwAAAHYwdAYJKoZIhvcNAQcGoGcwZQIBADBgBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDGBEL//zKYs6JXx0vAIBEIAze4+GYdlZmLsXL7f3RFqzLSX3EG9iwCym8pLhbrT+8XcMmjo5Pyh7gcqmrEnJhtDXevPU
-
+      kmsEncryptedSlackApiToken: AQECAHiFsBBRz85HV/5Nbb0vV4mSgEFlW3qWxCQXdK2y0HZcgwAAAK0wgaoGCSqGSIb3DQEHBqCBnDCBmQIBADCBkwYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAzBoTIoePLKZpyCQpoCARCAZsDePgZFyxv8ZozvJeQtlz5EpAV2SxcCrZF0aJ+d5Dj4auXPNRI7AdxzDOTV7EVjys49aRJoJW0h4uVn2kZ4Lq7aYxcAxv4qLX5FU+Jc4LObEtZcNngiMJ1jmaitQJ3k//MCkbH7Gg==
 
 # you can add CloudFormation resource templates here
 #resources:
