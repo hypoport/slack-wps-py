@@ -17,7 +17,7 @@ by setting and sharing each worker's status easily.
 | ---------- | ----- |
 | sick | krank |
 | vacation | vacay vaca vac urlaub |
-| offline | off |
+| offline | off, afk |
 | homeoffice | ho home |
 | remote | rem rmt |
 | workoffice | office work wo |

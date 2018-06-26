@@ -46,4 +46,23 @@ class WpsParser:
             command['users'] = status_or_users.replace('@', '').split()
         else:
             command['commandType'] = CommandType.SET
-            command['status'] = status_or_users.strip()
+            status = self.map_status(status_or_users.strip())
+            command['status'] = status
+
+    def map_status(self, status):
+        if status in ['krank', 'sick']:
+            return 'sick'
+        elif status in ['vacation', 'vacay', 'vaca','vac','urlaub']:
+            return 'vacation'
+        elif status in ['offline','off','afk']:
+            return 'offline'
+        elif status in ['homeoffice', 'ho', 'hangover']:
+            return 'homeoffice'
+        elif status in ['remote','rmt']:
+            return 'remote'
+        elif status in ['workoffice','wo']:
+            return 'workoffice'
+        else:
+            self.logger.info('Illegal status: ' + status )
+            raise ValueError('Illegal status: '+ status)
+
