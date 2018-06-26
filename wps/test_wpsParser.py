@@ -110,3 +110,12 @@ class TestWpsParser(TestCase):
         command = self.wps.parse("@jane from tomorrow to in 3 days")
         self.assertEqual(expected_command, command)
 
+    @fake_time('1970-12-21 16:35:10')
+    def test_parse_get_status_for_group(self):
+        expected_command = {
+            'commandType': CommandType.GET_GROUP,
+            'group': 'S2Z9C1ZRC'
+        }
+        command = self.wps.parse("<!subteam^S2Z9C1ZRC|@pku>")
+        self.assertEqual(expected_command, command)
+

@@ -1,4 +1,5 @@
 import logging
+import re
 import dateparser
 from datetime import datetime, time
 from wps.commandType import CommandType
@@ -11,8 +12,16 @@ class WpsParser:
     def parse(self, text: str) -> dict:
         self.logger.info('start parsing %s..', text)
 
-        if text.strip().startswith("clear"):
+        strippedText = text.strip()
+        if strippedText.startswith("clear"):
             return {'commandType': CommandType.CLEAR}
+
+        if strippedText.startswith('<!subteam^'):
+            command = {
+                'commandType': CommandType.GET_GROUP,
+                'group': re.search('<!subteam\^(.*)\|', strippedText).group(1)
+            }
+            return command
 
         settingsWithTimeMin = {'RELATIVE_BASE': datetime.combine(datetime.today().date(), time.min)}
         settingsWithTimeMax = {'RELATIVE_BASE': datetime.combine(datetime.today().date(), time.max)}

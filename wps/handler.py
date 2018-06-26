@@ -37,19 +37,15 @@ Follow these steps to complete the configuration of your command API endpoint
      created API resource in the prod stage.
 """
 
-import boto3
 import logging
-import os
-from base64 import b64decode
 from urllib.parse import parse_qs
+
+from wps import PropertyExtractor
 from wps.commandType import CommandType
 from wps.wpsParser import WpsParser
 from wps.wpsRepository import WpsRepository
 
-ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedSlackWpsToken']
-
-kms = boto3.client('kms')
-expected_slack_wps_token = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_EXPECTED_TOKEN))['Plaintext'].decode("utf-8")
+expected_slack_wps_token = PropertyExtractor.get_serverless_property('kmsEncryptedSlackWpsToken')
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -76,31 +72,32 @@ def wps(event, context):
     try:
         user = params['user_name'][0]
         # params['command'][0]
-        channel = params['channel_name'][0]
         command_text = params['text'][0]
 
         command = WpsParser().parse(command_text)
         command['user'] = user
 
-        if command['commandType'] == CommandType.GET:
+        command_type_ = command['commandType']
+        if command_type_ == CommandType.GET:
             statuses = WpsRepository().get(command)
             response = 'What we know\n'
             for status in statuses:
                 response = response + '@%s is %s from %s to %s\n' % (status.user_name, status.status,
                                                                      status.from_date.strftime("%a %d.%m.%y %H:%M"),
                                                                      status.to_date.strftime("%a %d.%m.%y %H:%M"))
-
             return respond(None, response)
-        elif command['commandType'] == CommandType.SET:
+        elif command_type_ == CommandType.SET:
             WpsRepository().add(command)
             return respond(None, "Status %s saved for user %s" % (command['status'], user))
-        elif command['commandType'] == CommandType.CLEAR:
+        elif command_type_ == CommandType.CLEAR:
             WpsRepository().clear(command)
             return respond(None, "Cleared all status of user %s" % user)
+        # elif command_type_ == CommandType.GET_GROUP:
+        #     users = slackApi.slack_get_userIds_group()
+        #     statuses = WpsRepository().get()
         else:
             return respond(None, "Unexpected command - doing nothing")
 
-        return respond(None, "%s invoked %s in %s with the following text: %s" % (user, command, channel, command_text))
     except Exception as e:
         logger.error(e)
         return respond(None, "Slack Workplace Status\n"
