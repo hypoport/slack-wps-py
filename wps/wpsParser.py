@@ -73,5 +73,7 @@ class WpsParser:
             return 'workoffice'
         else:
             self.logger.info('Illegal status: ' + status )
-            raise ValueError('Illegal status: '+ status)
+            raise StatusException('Illegal status: '+ status)
 
+class StatusException(Exception):
+    pass

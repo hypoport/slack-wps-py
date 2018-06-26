@@ -42,7 +42,7 @@ from urllib.parse import parse_qs
 
 from wps import PropertyExtractor, slackApi
 from wps.commandType import CommandType
-from wps.wpsParser import WpsParser
+from wps.wpsParser import WpsParser, StatusException
 from wps.wpsRepository import WpsRepository
 
 expected_slack_wps_token = PropertyExtractor.get_serverless_property('kmsEncryptedSlackWpsToken')
@@ -97,7 +97,10 @@ def wps(event, context):
 
         else:
             return respond(None, "Unexpected command - doing nothing")
-
+    except StatusException:
+        return respond(None, "Only the following are allowed as a status:\n"
+                              "sick, vacation, offline, homeoffice, remote, workoffice\n"
+                              "\nFor more details see https://github.com/hypoport/slack-wps-py/blob/master/README.md")
     except Exception as e:
         logger.error(e)
         return respond(None, "Slack Workplace Status\n"
