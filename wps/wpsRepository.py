@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
@@ -11,10 +12,9 @@ class WpsStatus(Model):
         read_capacity_units = 1
         write_capacity_units = 1
     user_name = UnicodeAttribute(hash_key=True)
-    from_date = UTCDateTimeAttribute()
-    # from_date = UTCDateTimeAttribute(range_key=True)
+    sk = UnicodeAttribute(range_key=True)
+    from_date = UnicodeAttribute()
     status = UnicodeAttribute()
-    to_date = UTCDateTimeAttribute()
 
 
 class WpsRepository:
@@ -27,7 +27,7 @@ class WpsRepository:
     def add(self, command: dict):
         self.logger.info('adding %s..', command)
         WpsStatus(user_name=(command['user']), status=(command['status']),
-                  from_date=command['from_date'], to_date=command['to_date']).save()
+                  from_date=command['from_date'].isoformat(), sk=command['to_date'].isoformat()+uuid.uuid4().hex).save()
 
     def get(self, command: dict):
         self.logger.info('getting %s..', command)
